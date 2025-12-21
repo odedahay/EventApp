@@ -1,7 +1,7 @@
 import { useContext, useState, useEffect } from "react";
 import { ActivityIndicator, Text, View } from "react-native";
 import { AppContext } from "../store/appContext";
-import { AuthStack } from "./navigation";
+import { AuthStack, AppStack } from "./navigation";
 
 import { onAuthStateChanged } from "firebase/auth";
 import { AUTH } from "../config/firebase";
@@ -29,7 +29,7 @@ export default function RootNavigator(){
     
     return(
       <NavigationContainer>
-            { user ? <Text>Normal Stack</Text> : <AuthStack /> }
+            { user ? <AppStack user={user}/> : <AuthStack /> }
       </NavigationContainer>
     )
 }

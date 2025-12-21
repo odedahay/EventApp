@@ -67,6 +67,7 @@ export default function AuthScreen(){
             <ButtonCustom 
                 title={ type ? 'Sign up' : 'Sign in'}
                 onPress={handleAuth}
+                light={true}
             ></ButtonCustom>
             <Pressable
                 style={{ flexDirection: 'row'}}

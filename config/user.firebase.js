@@ -11,7 +11,7 @@ export const signUpUser = async(email, password) =>{
          // alert 
          Toast.show({
             type: 'success',
-            text1: 'Welcome Back'
+            text1: 'Welcome!!'
         })
          await addUserToFirestore(request.user)
     }catch(e){
@@ -25,7 +25,7 @@ export const signInUser = async(email, password) =>{
         await signInWithEmailAndPassword(AUTH, email, password);
         Toast.show({
             type: 'success',
-            text1: 'Welcome Back'
+            text1: 'Welcome Back ' + email 
         })
     } catch (e) {
         Toast.show({

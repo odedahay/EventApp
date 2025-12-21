@@ -7,10 +7,13 @@ export default function ButtonCustom(props){
         <Pressable
             onPress={props.onPress}
             style={({pressed})=>[
-                styles.button
+                styles.button,
+                !props.light && {borderColor: pressed ? AppStyle.purpLight : AppStyle.purpStrong}
             ]}
         >
-            <Text style={styles.buttonText}>{props.title}</Text>
+            <Text style={[styles.buttonText,
+                !props.light && {color: '#fff'}
+            ]}>{props.title}</Text>
         </Pressable>
     )
 }
