@@ -64,7 +64,9 @@ function DrawerNavigator(){
             <Drawer.Screen name="home_events" component={Home} 
                 options={{title: 'Events'}}
             />
-            <Drawer.Screen name="completed" component={CompletedEvents} />
+            <Drawer.Screen name="completed" component={CompletedEvents}
+                options={{ title: "Completed"}}
+            />
         </Drawer.Navigator>
     )
 }

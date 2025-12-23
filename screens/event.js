@@ -1,9 +1,10 @@
-import { Text } from "react-native";
+import { Text, View, StyleSheet } from "react-native";
+import AddEventButton from "../components/utils/addEventButton";
 
 export default function Event(){
     return(
-        <Text>
-            Event
-        </Text>
+        <View style={styles.container}>
+            <AddEventButton />
+        </View>
     )
 }
