@@ -1,10 +1,10 @@
-import { collection, doc, serverTimestamp, setDoc } from "firebase/firestore";
+import { collection, doc, getDocs, orderBy, query, serverTimestamp, setDoc, where, limit } from "firebase/firestore";
 import { AUTH,DB } from "./firebase";
 import Toast from 'react-native-toast-message';
 
 let eventsCol = collection(DB, 'events');
 
-export const createEvent = async(formData) =>{
+export const createEvent = async(formData)=> {
     try {
         
         //Get User
@@ -32,5 +32,42 @@ export const createEvent = async(formData) =>{
             text1: 'Oops, try again'
         });
         console.log(e);
+    }
+}
+
+export const getUserEvents = async(docLimit=4)=> {
+    try {
+        const user = AUTH.currentUser;
+        const q = query(
+            eventsCol,
+            orderBy('created_at', 'desc'),
+            where('owner', '==', user.uid),
+            where('status', '==', 'pending'),
+            limit(docLimit)
+        )
+
+        const querySnapshot = await getDocs(q)
+        const events = getMoreHelper(querySnapshot);
+
+        return{
+            ...events
+        }
+    } catch (e) {
+        console.log(e)
+    }
+}
+
+function getMoreHelper(querySnapshot){
+    let lastVisible = querySnapshot.docs[querySnapshot.docs.length-1];
+    const events = querySnapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+    }));
+
+    if(lastVisible === undefined || lastVisible===null)
+        lastVisible = false;
+
+    return{
+        events, lastVisible
     }
 }
