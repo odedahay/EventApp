@@ -1,5 +1,5 @@
 import { Text, View, StyleSheet, FlatList } from "react-native";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import { AppContext, getHomeEvents } from "../store/appContext";
 import AddEventButton from "../components/utils/addEventButton";
@@ -8,6 +8,7 @@ import { useNavigation } from "@react-navigation/native";
 
 export default function Home(){
     const context = useContext(AppContext);
+    const [refreshing, setRefreshing ] = useState(false);
     const navigation = useNavigation();
 
     useEffect(()=>{
@@ -19,12 +20,23 @@ export default function Home(){
             eventID: item.id
         });
     }
+    const onRefreshing = async()=>{
+        setRefreshing(true)
+        await context.getHomeEvents().then(()=>{
+            // console.log('refreshing...')
+            setRefreshing(false)
+        })
+    }
 
     return(
         <View style={styles.container}>
             { context.eventState.events && 
                 <FlatList 
                     data={context.eventState.events}
+                    refreshing={refreshing}
+                    onRefresh={onRefreshing}
+                    onEndReached={()=>{}}
+                    onEndReachedThreshold={()=>{}}
                     renderItem={({item})=>(
                         <EventCard
                             eventPressHandler={()=> eventPressHandler(item)}

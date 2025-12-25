@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
         marginHorizontal:40,
     },
     title:{
-        fontFamily:'Anton',
+        fontFamily:'Roboto_Condensed-SemiBold',
         fontSize:50,
         fontWeight:'bold',
         color:'#fff',

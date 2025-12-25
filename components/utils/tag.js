@@ -4,11 +4,11 @@ import { AppStyle } from "../../constants"
 export default function TagComp(props){
     const handleColor = (priority) => {
         if(priority === 'High'){
-            return AppStyle.purpStrong;
+            return AppStyle.tag_high;
         }else if( priority === 'Medium'){
-            return AppStyle.purpMedium;
+            return AppStyle.tag_med;
         }else{
-            return AppStyle.purpLight
+            return AppStyle.tag_low
         }
     }
 
@@ -28,8 +28,9 @@ const styles = StyleSheet.create({
         marginLeft:10,
         paddingHorizontal: 10,
         height: 25,
-        color: 'white',
-        borderRadius:3
+        color: AppStyle.tag_text_color,
+        borderRadius:360,
+        fontSize:14
     }
 })
 

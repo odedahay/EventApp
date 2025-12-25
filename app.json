@@ -30,8 +30,8 @@
         "expo-font",{
           "fonts": 
           [
-            "./assets/fonts/Anton.ttf", 
-            "./assets/fonts/Pacifico.ttf"
+            "./assets/fonts/Roboto_Condensed-SemiBold.ttf", 
+            "./assets/fonts/Montserrat-Medium.ttf"
           ]
         }
       ]

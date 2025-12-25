@@ -12,8 +12,8 @@ SplashScreen.preventAutoHideAsync();
 
 export default function App() {
   const [loaded, error] = useFonts({
-    'Pacifico':require('./assets/fonts/Pacifico.ttf'),
-    'Anton':require('./assets/fonts/Anton.ttf'),
+    'Montserrat-Medium':require('./assets/fonts/Montserrat-Medium.ttf'),
+    'Roboto_Condensed-SemiBold':require('./assets/fonts/Roboto_Condensed-SemiBold.ttf'),
   })
 
   useEffect(() => {

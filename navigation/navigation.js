@@ -48,10 +48,10 @@ function DrawerNavigator(){
             drawerContent={CustomDrawerContent}
             screenOptions={{
                 headerStyle: { backgroundColor: AppStyle.purpStrong},
-                headerTintColor: AppStyle.kakhi,
+                headerTintColor: AppStyle.light_color,
                 headerTitleStyle:{
-                    fontFamily: 'Pacifico',
-                    fontSize:20
+                    fontFamily: 'Montserrat-Medium',
+                    fontSize:24
                 },
                 drawerStyle:{
                     backgroundColor: AppStyle.purpStrong,
@@ -78,7 +78,7 @@ export function AppStack({user}){
                 headerStyle: { backgroundColor: AppStyle.purpStrong},
                 headerTintColor: AppStyle.kakhi,
                 headerTitleStyle:{
-                    fontFamily: 'Pacifico',
+                    fontFamily: 'Montserrat-Medium',
                     fontSize:20
                 }
             }}
