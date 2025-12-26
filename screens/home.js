@@ -1,4 +1,4 @@
-import { Text, View, StyleSheet, FlatList } from "react-native";
+import { Text, View, StyleSheet, FlatList, ActivityIndicator } from "react-native";
 import { useContext, useEffect, useState } from "react";
 
 import { AppContext, getHomeEvents } from "../store/appContext";
@@ -8,6 +8,7 @@ import { useNavigation } from "@react-navigation/native";
 
 export default function Home(){
     const context = useContext(AppContext);
+    const [loading, setLoading ] = useState(false);
     const [refreshing, setRefreshing ] = useState(false);
     const navigation = useNavigation();
 
@@ -20,6 +21,14 @@ export default function Home(){
             eventID: item.id
         });
     }
+
+    const loadMoreArticles = async()=>{
+        setLoading(true);
+        await context.loadMoreEvent().then(()=>{
+            setLoading(false);
+        })
+    }
+
     const onRefreshing = async()=>{
         setRefreshing(true)
         await context.getHomeEvents().then(()=>{
@@ -35,8 +44,9 @@ export default function Home(){
                     data={context.eventState.events}
                     refreshing={refreshing}
                     onRefresh={onRefreshing}
-                    onEndReached={()=>{}}
-                    onEndReachedThreshold={()=>{}}
+                    onEndReached={()=>{ !loading && loadMoreArticles()}}
+                    onEndReachedThreshold={0.2}
+                    ListFooterComponent={()=>( loading && <ActivityIndicator />)}
                     renderItem={({item})=>(
                         <EventCard
                             eventPressHandler={()=> eventPressHandler(item)}

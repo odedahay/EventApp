@@ -1,4 +1,4 @@
-import { collection, doc, getDocs, orderBy, query, serverTimestamp, setDoc, where, limit } from "firebase/firestore";
+import { collection, doc, getDocs, orderBy, query, serverTimestamp, setDoc, where, limit, startAfter } from "firebase/firestore";
 import { AUTH,DB } from "./firebase";
 import Toast from 'react-native-toast-message';
 
@@ -52,6 +52,29 @@ export const getUserEvents = async(docLimit=4)=> {
         return{
             ...events
         }
+    } catch (e) {
+        console.log(e)
+    }
+}
+
+export const getMoreEvents = async(docLimit=2, lastVisible)=>{
+    try {
+        const user = AUTH.currentUser;
+        const q = query(
+            eventsCol,
+            orderBy('created_at', 'desc'),
+            where('owner', '==', user.uid),
+            where('status', '==', 'pending'),
+            startAfter(lastVisible),
+            limit(docLimit)
+        )
+         const querySnapshot = await getDocs(q)
+        const events = getMoreHelper(querySnapshot);
+
+        return{
+            ...events
+        }
+        
     } catch (e) {
         console.log(e)
     }
