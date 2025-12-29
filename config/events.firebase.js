@@ -1,4 +1,4 @@
-import { collection, doc, getDocs, orderBy, query, serverTimestamp, setDoc, where, limit, startAfter } from "firebase/firestore";
+import { collection, doc, getDocs, getDoc, orderBy, query, serverTimestamp, setDoc, where, limit, startAfter, updateDoc } from "firebase/firestore";
 import { AUTH,DB } from "./firebase";
 import Toast from 'react-native-toast-message';
 
@@ -28,6 +28,27 @@ export const createEvent = async(formData)=> {
         return eventData;
     } catch (e) {
         Toast.show({
+            type: 'error',
+            text1: 'Oops, try again'
+        });
+        console.log(e);
+    }
+}
+
+export const updateEvent = async(id, formData)=>{
+    try {
+        const docRef = doc(DB, 'events', id);
+        await updateDoc(docRef, {
+            ...formData
+        });
+        Toast.show({
+            type: 'success',
+            text1: 'Event Updated'
+        });
+        return true;
+        
+    } catch (e) {
+         Toast.show({
             type: 'error',
             text1: 'Oops, try again'
         });
@@ -75,6 +96,22 @@ export const getMoreEvents = async(docLimit=2, lastVisible)=>{
             ...events
         }
         
+    } catch (e) {
+        console.log(e)
+    }
+}
+
+export const getEventById = async(id) =>{
+    try {
+        const docRef = await getDoc(doc(DB, 'events', id));
+        if(!docRef.exists()){
+            Toast.show({
+            type: 'error',
+            text1: 'Could not find document'
+            });
+        }
+
+        return docRef.data();
     } catch (e) {
         console.log(e)
     }
